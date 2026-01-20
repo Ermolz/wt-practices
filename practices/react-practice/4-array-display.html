@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Відображення масиву</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+<div id="content"></div>
+<script type="text/babel">
+    function Book(props) {
+        return (
+            <div>
+                <p><strong>Автор: </strong> {props.author} </p>
+                <p><strong>Назва: </strong> {props.title} </p>
+            </div>
+        );
+    }
+    
+    class Books extends React.Component {
+        render() {
+            return this.props.catalog.map((book, index) =>
+                <Book key={index} author={book.author} title={book.title}></Book>
+            );
+        }
+    }
+    
+    const catalog = [
+        { author: "Ivanov", title: "Addicted to murders" },
+        { author: "Petrov", title: "The art of web programming" },
+        { author: "Sidorov", title: "How to cheat" }
+    ];
+    
+    const root = ReactDOM.createRoot(document.getElementById('content'));
+    root.render(<Books catalog={catalog}></Books>);
+</script>
+</body>
+</html>
+

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Браузерний паралелізм - Web Workers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .info-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        #counter {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Браузерний паралелізм - Web Workers</h1>
+    
+    <div class="info-box">
+        <h3>Лічильник від Web Worker</h3>
+        <p>Поточне значення: <span id="counter">0</span></p>
+        <button id="startBtn" onclick="startWorker()">Запустити Worker</button>
+        <button id="stopBtn" onclick="stopWorker()" disabled>Зупинити Worker</button>
+    </div>
+    
+    <div class="info-box">
+        <h3>Перевірка інтерфейсу</h3>
+        <button onclick="checkInterface()">Перевірка інтерфейсу</button>
+        <p id="interfaceStatus"></p>
+    </div>
+    
+    <script>
+        let worker = null;
+        
+        function startWorker() {
+            if (worker === null) {
+                worker = new Worker('worker.js');
+                worker.onmessage = function(e) {
+                    document.getElementById('counter').textContent = e.data;
+                };
+                worker.onerror = function(error) {
+                    console.error('Помилка Worker:', error);
+                };
+                document.getElementById('startBtn').disabled = true;
+                document.getElementById('stopBtn').disabled = false;
+            }
+        }
+        
+        function stopWorker() {
+            if (worker !== null) {
+                worker.terminate();
+                worker = null;
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = true;
+            }
+        }
+        
+        function checkInterface() {
+            document.getElementById('interfaceStatus').textContent = 
+                'Інтерфейс працює! Час: ' + new Date().toLocaleTimeString();
+        }
+    </script>
+</body>
+</html>
+

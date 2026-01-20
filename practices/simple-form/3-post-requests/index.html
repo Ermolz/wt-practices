@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST-запити: обговорення</title>
+</head>
+<body>
+    <h1>POST-запити: обговорення</h1>
+    <p>Порівняння GET та POST методів</p>
+    
+    <h2>GET запит</h2>
+    <form action="/get-example" method="GET">
+        <label for="name1">Введіть ім'я:</label>
+        <input type="text" id="name1" name="name" required>
+        <button type="submit">Відправити (GET)</button>
+    </form>
+    <p><small>Дані відправляються в URL: <code>?name=значення</code></small></p>
+    
+    <h2>POST запит</h2>
+    <form action="/post-example" method="POST">
+        <label for="name2">Введіть ім'я:</label>
+        <input type="text" id="name2" name="name" required>
+        <button type="submit">Відправити (POST)</button>
+    </form>
+    <p><small>Дані відправляються в тілі запиту (не видно в URL)</small></p>
+    
+    <h2>Висновки</h2>
+    <ul>
+        <li><strong>GET:</strong> Використовуйте для отримання даних, пошуку, фільтрації</li>
+        <li><strong>POST:</strong> Використовуйте для відправки даних, форм, створення ресурсів</li>
+    </ul>
+</body>
+</html>
+

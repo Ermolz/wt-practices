@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практикум з сховищ даних</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .info-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .info-box h3 {
+            margin-top: 0;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .warning {
+            color: #d9534f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Практикум з сховищ даних</h1>
+    
+    <div class="info-box">
+        <h3>Лічильник відвідувань (localStorage)</h3>
+        <p>Кількість відвідувань сайту: <strong id="visitCount">0</strong></p>
+        <p>Останнє відвідування: <strong id="lastVisit">-</strong></p>
+        <button onclick="resetVisitCount()">Скинути лічильник</button>
+    </div>
+    
+    <div class="info-box">
+        <h3>Лічильник переходів у сеансі (sessionStorage)</h3>
+        <p>Кількість переходів у поточному сеансі: <strong id="sessionCount">0</strong></p>
+        <button onclick="incrementSession()">Збільшити лічильник сеансу</button>
+        <button onclick="resetSessionCount()">Скинути лічильник сеансу</button>
+    </div>
+    
+    <div class="info-box">
+        <h3>Тест доступу з іншого сайту</h3>
+        <p class="warning">Сценарій з іншого сайту НЕ має доступу до localStorage та sessionStorage через політику same-origin.</p>
+        <p>Це забезпечує безпеку даних користувача.</p>
+    </div>
+    
+    <div class="info-box">
+        <h3>Навігація</h3>
+        <p><a href="page2.html">Перейти на сторінку 2</a> (для тестування sessionStorage)</p>
+    </div>
+    
+    <script>
+        function initVisitCount() {
+            let count = localStorage.getItem('visitCount');
+            if (count === null) {
+                count = 0;
+            } else {
+                count = parseInt(count);
+            }
+            count++;
+            localStorage.setItem('visitCount', count);
+            localStorage.setItem('lastVisit', new Date().toLocaleString());
+            
+            document.getElementById('visitCount').textContent = count;
+            document.getElementById('lastVisit').textContent = localStorage.getItem('lastVisit');
+        }
+        
+        function resetVisitCount() {
+            localStorage.removeItem('visitCount');
+            localStorage.removeItem('lastVisit');
+            initVisitCount();
+        }
+        
+        function initSessionCount() {
+            let count = sessionStorage.getItem('sessionCount');
+            if (count === null) {
+                count = 0;
+            } else {
+                count = parseInt(count);
+            }
+            count++;
+            sessionStorage.setItem('sessionCount', count);
+            document.getElementById('sessionCount').textContent = count;
+        }
+        
+        function incrementSession() {
+            let count = parseInt(sessionStorage.getItem('sessionCount') || '0');
+            count++;
+            sessionStorage.setItem('sessionCount', count);
+            document.getElementById('sessionCount').textContent = count;
+        }
+        
+        function resetSessionCount() {
+            sessionStorage.removeItem('sessionCount');
+            initSessionCount();
+        }
+        
+        initVisitCount();
+        initSessionCount();
+        
+        console.log('localStorage visitCount:', localStorage.getItem('visitCount'));
+        console.log('sessionStorage sessionCount:', sessionStorage.getItem('sessionCount'));
+    </script>
+</body>
+</html>
+

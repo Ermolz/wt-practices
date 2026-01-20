@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Найпростіший приклад React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+<div id="content"></div>
+<script type="text/babel">
+    const root = ReactDOM.createRoot(document.getElementById('content'));
+    root.render(<h1>Hello, world!</h1>);
+</script>
+</body>
+</html>
+

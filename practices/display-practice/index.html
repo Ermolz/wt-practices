@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практикум з відображення - RESTful API з React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .book {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .loading {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Практикум з відображення</h1>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        function Book({ book }) {
+            return (
+                <div className="book">
+                    <p><strong>Автор:</strong> {book.author}</p>
+                    <p><strong>Назва:</strong> {book.title}</p>
+                    <p><strong>Рік:</strong> {book.year}</p>
+                </div>
+            );
+        }
+        
+        function BooksList() {
+            const [books, setBooks] = React.useState([]);
+            const [loading, setLoading] = React.useState(false);
+            
+            const fetchBooks = async () => {
+                setLoading(true);
+                try {
+                    const response = await fetch('/api/books');
+                    const data = await response.json();
+                    setBooks(data);
+                } catch (error) {
+                    console.error('Помилка завантаження:', error);
+                } finally {
+                    setLoading(false);
+                }
+            };
+            
+            return (
+                <div>
+                    <button onClick={fetchBooks}>Завантажити книжки</button>
+                    {loading && <p className="loading">Завантаження...</p>}
+                    <div>
+                        {books.map(book => (
+                            <Book key={book.id} book={book} />
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+        
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<BooksList />);
+    </script>
+</body>
+</html>
+

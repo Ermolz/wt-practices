@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Компонент у стилі класу</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+<div id="content"></div>
+<script type="text/babel">
+    class Book extends React.Component {
+        render() {
+            return (
+                <div>
+                    <p><strong>Автор: </strong> {this.props.author} </p>
+                    <p><strong>Назва: </strong> {this.props.title} </p>
+                </div>
+            );
+        }
+    }
+    const root = ReactDOM.createRoot(document.getElementById('content'));
+    root.render(<Book author="Ivanov" title="How to cheat"></Book>);
+</script>
+</body>
+</html>
+

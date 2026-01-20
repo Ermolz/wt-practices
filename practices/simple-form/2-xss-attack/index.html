@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приклад простої XSS-атаки</title>
+</head>
+<body>
+    <h1>Приклад простої XSS-атаки</h1>
+    <p>Спробуйте ввести в поле: <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code></p>
+    
+    <h2>Вразлива версія (без екранування)</h2>
+    <form action="/vulnerable" method="GET">
+        <label for="name1">Введіть ім'я:</label>
+        <input type="text" id="name1" name="name" placeholder="<script>alert('XSS')</script>">
+        <button type="submit">Відправити (небезпечно)</button>
+    </form>
+    
+    <h2>Безпечна версія (з екрануванням)</h2>
+    <form action="/safe" method="GET">
+        <label for="name2">Введіть ім'я:</label>
+        <input type="text" id="name2" name="name" placeholder="<script>alert('XSS')</script>">
+        <button type="submit">Відправити (безпечно)</button>
+    </form>
+</body>
+</html>
+

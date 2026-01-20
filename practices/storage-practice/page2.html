@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сторінка 2 - Практикум з сховищ даних</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .info-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .info-box h3 {
+            margin-top: 0;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Сторінка 2</h1>
+    
+    <div class="info-box">
+        <h3>Лічильник відвідувань (localStorage)</h3>
+        <p>Кількість відвідувань сайту: <strong id="visitCount">0</strong></p>
+        <p><em>Це значення зберігається між сеансами</em></p>
+    </div>
+    
+    <div class="info-box">
+        <h3>Лічильник переходів у сеансі (sessionStorage)</h3>
+        <p>Кількість переходів у поточному сеансі: <strong id="sessionCount">0</strong></p>
+        <p><em>Це значення зберігається тільки в поточному сеансі</em></p>
+    </div>
+    
+    <div class="info-box">
+        <h3>Навігація</h3>
+        <p><a href="index.html">Повернутися на головну</a></p>
+    </div>
+    
+    <script>
+        function updateCounts() {
+            const visitCount = localStorage.getItem('visitCount') || '0';
+            const sessionCount = sessionStorage.getItem('sessionCount') || '0';
+            
+            let count = parseInt(sessionCount);
+            count++;
+            sessionStorage.setItem('sessionCount', count);
+            
+            document.getElementById('visitCount').textContent = visitCount;
+            document.getElementById('sessionCount').textContent = count;
+        }
+        
+        updateCounts();
+        
+        console.log('localStorage visitCount:', localStorage.getItem('visitCount'));
+        console.log('sessionStorage sessionCount:', sessionStorage.getItem('sessionCount'));
+    </script>
+</body>
+</html>
+
